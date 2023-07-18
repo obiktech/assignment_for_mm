@@ -33,3 +33,7 @@ def login_emp(email, password):
 
     access_token = create_access_token(identity=user.id)
     return access_token
+
+
+def reset_password(user_id):
+    user = User.query.get(user_id)
