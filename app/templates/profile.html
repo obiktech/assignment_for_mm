@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script >
+        if ($.cookie('Authorization') == undefined){
+
+        }
+        else{
+            var token = $.cookie('Authorization');
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:5000/",
+                headers:{
+                    "Authorization":token
+                },
+                contentType: "application/json; charset=utf-8",
+                success: function (data, status, jqXHR){
+                    
+                    
+
+                },
+                error: function (jqXHR, status) {
+                        // error handler
+                        console.log(jqXHR);
+                        alert('fail' + status.code);
+                    },
+
+                dataType: "json"
+                });
+    
+        }
+    </script>
+
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>User Profile</h1>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="{% if user %} {{ user.profile_picture }} {% endif %}"
+              alt="Profile Picture"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                Email: {% if user %} {{ user.email }} {% endif %}
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h4>Change Profile Picture</h4>
+          <form
+            method="POST"
+            enctype="multipart/form-data"
+            action="/auth/upload-profile-picture"
+          >
+            <div class="form-group">
+              <input
+                type="file"
+                class="form-control-file"
+                id="profilePicture"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

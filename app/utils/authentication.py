@@ -2,7 +2,7 @@ from app.models import User
 from flask_bcrypt import generate_password_hash, check_password_hash
 from app import db
 from flask_jwt_extended import create_access_token
-
+from app.utils.services import send_email
 
 def register_employee(email, password):
     if User.query.filter_by(email=email).first():
@@ -16,6 +16,7 @@ def register_employee(email, password):
     new_user = User(email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
+    send_email(email)
 
     return 0
 
