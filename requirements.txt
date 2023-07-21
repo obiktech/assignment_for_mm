@@ -6,6 +6,3 @@ flask_sqlalchemy
 python-dotenv
 gunicorn
 flask-cors
-# email
-smtplib
-ssl
